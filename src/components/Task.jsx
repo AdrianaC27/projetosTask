@@ -10,6 +10,13 @@ import 'moment/locale/pt-br'
 
 export default props =>{
 
+    const tarefaConcluidaNao = props.concluidaEm != null ?
+    {textDecorationLine: 'line-through'} : {}
+
+    const date = props.concluidaEm ? props.concluidaEm : props.dataEstimada
+
+    const dateFormat = moment(date).locale('pt-br'). format('ddd, D[de] MMMM')
+
     return (
         <View style ={style.container}>
             <View style ={style.checkContainer}>
@@ -21,8 +28,7 @@ export default props =>{
                 <Text style ={style.date}>{dateFormat}</Text>
             </View>
 
-            
-            
+          
         </View>
 
       

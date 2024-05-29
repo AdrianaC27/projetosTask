@@ -1,14 +1,24 @@
 import React from "react";
-import { SafeAreaView, Text, View ,ImageBackground ,StyleSheet } from "react-native";
-
+import { SafeAreaView, Text, View ,ImageBackground ,StyleSheet, FlatList } from "react-native";
 import todayImage from '../../assets/imgs/today.jpg';
 import moment from 'moment'
 import 'moment/locale/pt-br'
 import commonStyles from "../commonStyles";
-
 import Task from "../components/Task";
 
+
 export default props =>{
+
+    const livros= [
+        {id: 1, descricao:'tarefa realizada', dataEstimada:new Date(), concluidaEm: null,},
+        {id: 2, descricao:'tarefa nao realizada', dataEstimada:new Date(), concluidaEm: null,},
+        {id: 3, descricao:'comprar Livro', dataEstimada:new Date(), concluidaEm: null,},
+        {id: 4, descricao:'Ler Livro', dataEstimada:new Date(), concluidaEm: null,},
+        {id: 5, descricao:'Emprestar o livro', dataEstimada:new Date(), concluidaEm: false,},
+
+        
+    ];
+    
     const today = moment().locale('pt-br').format('ddd, D [de] MMMM')
 
     return (
@@ -21,13 +31,30 @@ export default props =>{
         </View>    
 
         </ImageBackground>
+        
 
         <View style ={ style.tasklist}>
-        <Task>
-            
-        </Task>
 
+            
+            <FlatList
+                    data={livros}
+                    keyExtractor={item => item.id}
+                    renderItem={({item})=> (
+                        <Task descricao={item.descricao}
+                            dataEstimada={item.dataEstimada}
+                            concluidaEm={item.concluidaEm}/>  
+                    )}
+
+            
+                    />         
+
+         
+            
+                         
+            
         </View>
+
+        
         
         
     </SafeAreaView>
