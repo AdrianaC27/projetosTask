@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableWithoutFeedback } from "react-native";
-
+import { View, Text, StyleSheet, TouchableWithoutFeedback, TouchableOpacity } from "react-native";
+import { GestureHandlerRootView,Swipeable } from "react-native-gesture-handler";}
 import commonStyles from "../commonStyles";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -16,8 +16,22 @@ export default props => {
     
     const dateFormat = moment(date).locale('pt-br')
         .format('ddd, D [de] MMMM')
+    const getRightContent = () => {
+        return(
+            <TouchableOpacity style={style.right}
+            onPress={() => props.onDelete && props.onDelete(props.id)}>
+            <Icon name='trash' size={30} color='#FFF'/>    
+
+            </TouchableOpacity>
+        )
+    }    
 
     return (
+        <GestureHandlerRootView>
+            <Swipeable renderRightActions={getRightContent}
+                        renderLeftActions={getLeftContent}
+                        onSwipeableWillOpen={() => props.onDelete && props.onDelete(props.id)}>
+                
         <View style={style.container}>
         <TouchableWithoutFeedback
             onPress={() => props.toggleTask(props.id)}
@@ -31,6 +45,9 @@ export default props => {
             <Text style={style.date}>{dateFormat}</Text>
         </View>
     </View>
+
+    </Swipeable>
+    </GestureHandlerRootView>
 )
 }
 
